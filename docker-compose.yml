@@ -1,0 +1,13 @@
+version: "2"
+
+services:
+  db:
+    image: postgres:latest
+    environment:
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=diplom_db
+      - POSTGRES_USER=diplom_user
+    ports:
+      - 5433:5432
+    volumes:
+      - ./pg/:/var/lib/postgresql/data
