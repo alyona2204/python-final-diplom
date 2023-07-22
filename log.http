@@ -1,0 +1,216 @@
+### создадим shop
+
+POST {{BASE_URL}}/api/v1/user/register
+Content-Type: application/x-www-form-urlencoded
+
+first_name=shop_first_name&last_name=shop_last_name&email={{email_s}}&password={{password_s}}&company=OOOshop&position=shop&type=shop
+
+### подтвердим токен shop
+
+POST {{BASE_URL}}/api/v1/user/register/confirm
+Content-Type: application/x-www-form-urlencoded
+
+email={{email_s}}&token={{confirm_token_s}}&
+
+### авторизация и получение токена сохраним в token_s файла http-client.env.json
+
+POST {{BASE_URL}}/api/v1/user/login
+Content-Type: application/x-www-form-urlencoded
+
+email={{email_s}}&password={{password_s}}
+
+### создадим buyer
+
+POST {{BASE_URL}}/api/v1/user/register
+Content-Type: application/x-www-form-urlencoded
+
+first_name=test_first_name&last_name=test_last_name&email={{email_b}}&password={{password_b}}&company=OOOtest&position=BOSS&
+
+### подтвердим токен
+
+POST {{BASE_URL}}/api/v1/user/register/confirm
+Content-Type: application/x-www-form-urlencoded
+
+email={{email_b}}&token={{confirm_token_b}}&
+
+### авторизация и получение токена сохраним в token_b файла http-client.env.json
+
+POST {{BASE_URL}}/api/v1/user/login
+Content-Type: application/x-www-form-urlencoded
+
+email={{email_b}}&password={{password_b}}
+
+### статус buyer
+
+GET {{BASE_URL}}/api/v1/partner/state
+Accept: application/json
+Authorization: Token {{token_b}}
+
+### статус shop
+
+GET {{BASE_URL}}/api/v1/partner/state
+Accept: application/json
+Authorization: Token {{token_s}}
+
+### статус shop изменить
+
+POST {{BASE_URL}}/api/v1/partner/state
+Accept: application/json
+Authorization: Token {{token_s}}
+Content-Type: application/json
+
+{
+  "state": "off"
+}
+
+### статус shop изменить
+
+POST {{BASE_URL}}/api/v1/partner/state
+Accept: application/json
+Authorization: Token {{token_s}}
+Content-Type: application/json
+
+{
+  "state": "on"
+}
+
+### информация buyer
+
+GET {{BASE_URL}}/api/v1/user/details
+Accept: application/json
+Authorization: Token {{token_b}}
+
+### информация shop
+
+GET {{BASE_URL}}/api/v1/user/details
+Accept: application/json
+Authorization: Token {{token_s}}
+
+### все магазы
+
+GET {{BASE_URL}}/api/v1/shops
+Accept: application/json
+Authorization: Token {{token_b}}
+
+### обновление shop
+
+POST {{BASE_URL}}/api/v1/partner/update
+Accept: application/json
+Authorization: Token {{token_s}}
+Content-Type: application/json
+
+{
+  "url": "{{shop1url}}"
+}
+
+### Получить список заказов
+
+GET {{BASE_URL}}/api/v1/partner/order
+Accept: application/json
+Authorization: Token {{token_s}}
+
+### Получить состав заказа
+
+GET {{BASE_URL}}/api/v1/partner/order/{{order_id}}
+Accept: application/json
+Authorization: Token {{token_s}}
+
+
+### Покупатель список магазинов
+
+GET {{BASE_URL}}/api/v1/shops
+Accept: application/json
+Authorization: Token {{token_b}}
+
+### Покупатель список категорий
+
+GET {{BASE_URL}}/api/v1/categories
+Accept: application/json
+Authorization: Token {{token_b}}
+
+### Покупатель список товаров категории и магазина category_id shop_id
+
+GET {{BASE_URL}}/api/v1/products?category_id=224
+Accept: application/json
+Authorization: Token {{token_b}}
+
+### Покупатель Карточка товара
+
+GET {{BASE_URL}}/api/v1/products/4
+Accept: application/json
+Authorization: Token {{token_b}}
+
+### Покупатель корзина (текущий заказ пока он не перешел в статус подтвержден)
+
+GET {{BASE_URL}}/api/v1/basket
+Accept: application/json
+Authorization: Token {{token_b}}
+
+### Покупатель добавить в корзину
+
+PUT {{BASE_URL}}/api/v1/basket
+Accept: application/json
+Authorization: Token {{token_b}}
+Content-Type: application/json
+
+{
+  "items": [
+    {
+    "product_info": 5,
+    "quantity": 2
+  },
+    {
+    "product_info": 7,
+    "quantity": 1
+  }
+  ]
+}
+
+### Мои контакты
+GET {{BASE_URL}}/api/v1/user/contact
+Accept: application/json
+Authorization: Token {{token_b}}
+
+### Создай свои контакты
+POST {{BASE_URL}}/api/v1/user/contact
+Accept: application/json
+Authorization: Token {{token_b}}
+Content-Type: application/json
+
+{
+  "city": "Горячий ключ",
+  "street": "Объездная 18а",
+  "phone": "+79181687691"
+}
+
+### Обновить свой контакт (доставки на разные мои адресса)
+PUT {{BASE_URL}}/api/v1/user/contact
+Accept: application/json
+Authorization: Token {{token_b}}
+Content-Type: application/json
+
+{
+  "id": "1",
+  "street": "Объездная 18а 7/3"
+}
+
+### Создай заказ (id текущая корзина contact куда доставка корзина переходит в статус заказ подтвержден)
+POST {{BASE_URL}}/api/v1/order
+Accept: application/json
+Authorization: Token {{token_b}}
+Content-Type: application/json
+
+{
+  "id": "1",
+  "contact": "1"
+}
+
+### Мои заказы
+GET {{BASE_URL}}/api/v1/order
+Accept: application/json
+Authorization: Token {{token_b}}
+
+### Мои заказ
+GET {{BASE_URL}}/api/v1/order/{{order_id}}
+Accept: application/json
+Authorization: Token {{token_b}}

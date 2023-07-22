@@ -1,6 +1,13 @@
 version: "2"
 
 services:
+  shop:
+    image: nginx
+    ports:
+      - 8000:80
+    volumes:
+      - ./data:/usr/share/nginx/html
+
   db:
     image: postgres:latest
     environment:
@@ -11,3 +18,48 @@ services:
       - 5433:5432
     volumes:
       - ./pg/:/var/lib/postgresql/data
+#
+#  app:
+#    image: pythonfinaldiplom:1.0
+#    ports:
+#      - 8055:8777
+#    build:
+#      context: .
+#    command: sh -c "/usr/src/app/migrate.sh && /usr/src/app/run.sh"
+#    depends_on:
+#      - db
+#    volumes:
+#      - ./orders:/usr/src/app
+#    links:
+#      - db
+#      - shop
+#    environment:
+#      - BACKEND_DB_HOST=db
+#      - BACKEND_DB_PORT=5432
+#      - REDIS_PORT=6379
+#      - REDIS_HOST=cache
+
+  cache:
+      image: redis:latest
+      ports:
+        - 7777:6379
+#
+#  celery:
+#    image: pythonfinaldiplom:1.0
+#    depends_on:
+#      - db
+#      - cache
+#    build:
+#      context: .
+#    command: sh -c "/usr/src/app/run_celery.sh"
+#    volumes:
+#      - ./orders:/usr/src/app
+#    links:
+#      - db
+#      - shop
+#    environment:
+#      - BACKEND_DB_HOST=db
+#      - BACKEND_DB_PORT=5432
+#      - REDIS_PORT=6379
+#      - REDIS_HOST=cache
+#
