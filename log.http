@@ -148,6 +148,27 @@ Authorization: Token {{token_b}}
 
 ### Покупатель добавить в корзину
 
+POST {{BASE_URL}}/api/v1/basket
+Accept: application/json
+Authorization: Token {{token_b}}
+Content-Type: application/json
+
+{
+  "items": [
+    {
+      "product_info": 12,
+      "quantity": 2
+    },
+    {
+      "product_info": 10,
+      "quantity": 1
+    }
+  ]
+}
+
+
+### Покупатель обновляет корзину
+
 PUT {{BASE_URL}}/api/v1/basket
 Accept: application/json
 Authorization: Token {{token_b}}
@@ -156,11 +177,11 @@ Content-Type: application/json
 {
   "items": [
     {
-    "product_info": 5,
+    "product_info": 10,
     "quantity": 2
   },
     {
-    "product_info": 7,
+    "product_info": 11,
     "quantity": 1
   }
   ]
@@ -190,7 +211,7 @@ Authorization: Token {{token_b}}
 Content-Type: application/json
 
 {
-  "id": "1",
+  "id": "5",
   "street": "Объездная 18а 7/3"
 }
 
@@ -201,8 +222,8 @@ Authorization: Token {{token_b}}
 Content-Type: application/json
 
 {
-  "id": "1",
-  "contact": "1"
+  "id": "{{order_id}}",
+  "contact": "5"
 }
 
 ### Мои заказы

@@ -83,8 +83,8 @@ DATABASES = {
         'NAME': 'diplom_db',
         'USER': 'diplom_user',
         'PASSWORD': 'password',
-        'HOST': '127.0.0.1',
-        'PORT': '5433',
+        'HOST': os.getenv('BACKEND_DB_HOST', '127.0.0.1'),
+        'PORT': os.getenv('BACKEND_DB_PORT', '5433'),
     }
 }
 
