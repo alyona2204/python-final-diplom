@@ -1,41 +1,41 @@
 ### создадим shop
 
-POST {{BASE_URL}}/api/v1/user/register
+POST {{BASE_URL}}/api/v1/user/register/
 Content-Type: application/x-www-form-urlencoded
 
 first_name=shop_first_name&last_name=shop_last_name&email={{email_s}}&password={{password_s}}&company=OOOshop&position=shop&type=shop
 
 ### подтвердим токен shop
 
-POST {{BASE_URL}}/api/v1/user/register/confirm
+POST {{BASE_URL}}/api/v1/user/register/confirm/
 Content-Type: application/x-www-form-urlencoded
 
 email={{email_s}}&token={{confirm_token_s}}&
 
 ### авторизация и получение токена сохраним в token_s файла http-client.env.json
 
-POST {{BASE_URL}}/api/v1/user/login
+POST {{BASE_URL}}/api/v1/user/login/
 Content-Type: application/x-www-form-urlencoded
 
 email={{email_s}}&password={{password_s}}
 
 ### создадим buyer
 
-POST {{BASE_URL}}/api/v1/user/register
+POST {{BASE_URL}}/api/v1/user/register/
 Content-Type: application/x-www-form-urlencoded
 
 first_name=test_first_name&last_name=test_last_name&email={{email_b}}&password={{password_b}}&company=OOOtest&position=BOSS&
 
 ### подтвердим токен
 
-POST {{BASE_URL}}/api/v1/user/register/confirm
+POST {{BASE_URL}}/api/v1/user/register/confirm/
 Content-Type: application/x-www-form-urlencoded
 
 email={{email_b}}&token={{confirm_token_b}}&
 
 ### авторизация и получение токена сохраним в token_b файла http-client.env.json
 
-POST {{BASE_URL}}/api/v1/user/login
+POST {{BASE_URL}}/api/v1/user/login/
 Content-Type: application/x-www-form-urlencoded
 
 email={{email_b}}&password={{password_b}}
@@ -54,7 +54,7 @@ Authorization: Token {{token_s}}
 
 ### статус shop изменить
 
-POST {{BASE_URL}}/api/v1/partner/state
+POST {{BASE_URL}}/api/v1/partner/state/
 Accept: application/json
 Authorization: Token {{token_s}}
 Content-Type: application/json
@@ -65,7 +65,7 @@ Content-Type: application/json
 
 ### статус shop изменить
 
-POST {{BASE_URL}}/api/v1/partner/state
+POST {{BASE_URL}}/api/v1/partner/state/
 Accept: application/json
 Authorization: Token {{token_s}}
 Content-Type: application/json
@@ -94,7 +94,7 @@ Authorization: Token {{token_b}}
 
 ### обновление shop
 
-POST {{BASE_URL}}/api/v1/partner/update
+POST {{BASE_URL}}/api/v1/partner/update/
 Accept: application/json
 Authorization: Token {{token_s}}
 Content-Type: application/json
@@ -148,7 +148,7 @@ Authorization: Token {{token_b}}
 
 ### Покупатель добавить в корзину
 
-POST {{BASE_URL}}/api/v1/basket
+POST {{BASE_URL}}/api/v1/basket/
 Accept: application/json
 Authorization: Token {{token_b}}
 Content-Type: application/json
@@ -169,7 +169,7 @@ Content-Type: application/json
 
 ### Покупатель обновляет корзину
 
-PUT {{BASE_URL}}/api/v1/basket
+PUT {{BASE_URL}}/api/v1/basket/
 Accept: application/json
 Authorization: Token {{token_b}}
 Content-Type: application/json
@@ -193,7 +193,7 @@ Accept: application/json
 Authorization: Token {{token_b}}
 
 ### Создай свои контакты
-POST {{BASE_URL}}/api/v1/user/contact
+POST {{BASE_URL}}/api/v1/user/contact/
 Accept: application/json
 Authorization: Token {{token_b}}
 Content-Type: application/json
@@ -205,7 +205,7 @@ Content-Type: application/json
 }
 
 ### Обновить свой контакт (доставки на разные мои адресса)
-PUT {{BASE_URL}}/api/v1/user/contact
+PUT {{BASE_URL}}/api/v1/user/contact/
 Accept: application/json
 Authorization: Token {{token_b}}
 Content-Type: application/json
@@ -216,7 +216,7 @@ Content-Type: application/json
 }
 
 ### Создай заказ (id текущая корзина contact куда доставка корзина переходит в статус заказ подтвержден)
-POST {{BASE_URL}}/api/v1/order
+POST {{BASE_URL}}/api/v1/order/
 Accept: application/json
 Authorization: Token {{token_b}}
 Content-Type: application/json

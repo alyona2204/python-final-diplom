@@ -79,10 +79,13 @@ class OrderItemCreateSerializer(OrderItemSerializer):
 class OrderSerializer(serializers.ModelSerializer):
     ordered_items = OrderItemCreateSerializer(read_only=True, many=True)
 
-    total_sum = serializers.IntegerField()
+    total_sum = serializers.FloatField()
     contact = ContactSerializer(read_only=True)
 
     class Meta:
         model = Order
         fields = ('id', 'ordered_items', 'state', 'dt', 'total_sum', 'contact',)
         read_only_fields = ('id',)
+class BasketSerializer(OrderSerializer):
+    state = serializers.CharField(required=False)
+    total_sum = serializers.FloatField(required=False)
