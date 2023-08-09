@@ -2,8 +2,11 @@ from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.validators import UnicodeUsernameValidator
 from django.db import models
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 from django.utils.translation import gettext_lazy as _
 from django_rest_passwordreset.tokens import get_token_generator
+from social_django.models import UserSocialAuth
 
 STATE_CHOICES = (
     ('basket', 'Статус корзины'),
@@ -97,7 +100,20 @@ class User(AbstractUser):
         verbose_name = 'Пользователь'
         verbose_name_plural = "Список пользователей"
         ordering = ('email',)
+@receiver(post_save, sender=UserSocialAuth)
+def my_handler(sender, instance, **kwargs):
+    print(instance.id, instance.user_id)
+    user = User.objects.filter(pk=instance.user_id).first()
+    if user:
+        print('set active')
+        user.is_active = True
+        user.save()
 
+
+    # if UserSocialAuth.objects.filter(user_id=instance.id) and not instance.is_active:
+    #     print('set active')
+    #     instance.is_active = True
+    #     instance.save()
 
 class Shop(models.Model):
     name = models.CharField(max_length=50, verbose_name='Название')
